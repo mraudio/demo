@@ -45,6 +45,7 @@
     [super setBounds:aRect];
     
     [_imageLayer setPosition:CGPointMake(CGRectGetMidX(aRect), CGRectGetMidY(aRect))];
+    // [_imageLayer setPosition:CGPointMake(0, 0)];
 }
 
 - (void)setImage:(CPImage)anImage
@@ -129,18 +130,23 @@
         [self setWantsLayer:YES];
         [self setLayer:_rootLayer];
         
-        [_rootLayer setBackgroundColor:[CPColor whiteColor]];
+        [_rootLayer setBackgroundColor:[CPColor magentaColor]];
 
 		_paneLayer = [[PaneLayer alloc] initWithPageView:self];
 
-		[_paneLayer setBounds:
-			CGRectMake(0.0, 0.0, 1030.0 - 2.0 * 40.0, 760.0 - 2.0 * 40.0)];
+		// [_paneLayer setBounds:
+			// CGRectMake(0.0, 0.0, 1030.0 - 2.0 * 40.0, 760.0 - 2.0 * 40.0)];
+		// [_paneLayer setAnchorPoint:CGPointMakeZero()];
+		// [_paneLayer setPosition:CGPointMake(40.0, 40.0)];
+		
+		[_paneLayer setBounds: CGRectMake(0.0, 0.0, 1030.0, 760.0)];
 		[_paneLayer setAnchorPoint:CGPointMakeZero()];
-		[_paneLayer setPosition:CGPointMake(40.0, 40.0)];
+		[_paneLayer setPosition:CGPointMakeZero()];
 
-		[_paneLayer setImage:[[CPImage alloc]
-			initWithContentsOfFile: @"Resources/Ipad/ARD.jpg"
-			size:CGSizeMake(1030.0, 760.0)]];
+		// [_paneLayer setImage:[[CPImage alloc]
+			// initWithContentsOfFile: @"Resources/Ipad/ARD.jpg"
+			// size:CGSizeMake(1030.0, 760.0)]];
+		[_paneLayer setImage:null];
 
 		[_rootLayer addSublayer:_paneLayer];
 		
@@ -178,17 +184,17 @@
 		width = CGRectGetWidth(bounds),
 		height = CGRectGetHeight(bounds);
 
-	CGContextFillRect(aContext, CGRectMake(0.0, 0.0, width, 40.0));
-	CGContextFillRect(aContext, CGRectMake(0.0, 40.0, 40.0, height - 2.0 * 40.0));
-	CGContextFillRect(aContext, CGRectMake(width - 40.0, 40.0, 40.0, height - 2.0 * 40.0));
-	CGContextFillRect(aContext, CGRectMake(0.0, height - 40.0, width, 40.0));
+	// CGContextFillRect(aContext, CGRectMake(0.0, 0.0, width, 40.0));
+	// CGContextFillRect(aContext, CGRectMake(0.0, 40.0, 40.0, height - 2.0 * 40.0));
+	// CGContextFillRect(aContext, CGRectMake(width - 40.0, 40.0, 40.0, height - 2.0 * 40.0));
+	// CGContextFillRect(aContext, CGRectMake(0.0, height - 40.0, width, 40.0));
 }
 
-- (void)mouseDown:(CPEvent)anEvent
-{
-    if ([anEvent clickCount] == 2)
-        [PhotoInspector inspectPaneLayer:_paneLayer];
-}
+// - (void)mouseDown:(CPEvent)anEvent
+// {
+    // if ([anEvent clickCount] == 2)
+        // [PhotoInspector inspectPaneLayer:_paneLayer];
+// }
 
 - (void)performDragOperation:(CPDraggingInfo)aSender
 {

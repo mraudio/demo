@@ -80,8 +80,8 @@
 	
 	var bounds = [contentView bounds],
         pageView = [[PageView alloc] initWithFrame:
-            CGRectMake(CGRectGetWidth(bounds) / 2.0 - 200.0,
-					  CGRectGetHeight(bounds) / 2.0 - 200.0, 400.0, 400.0)];
+            CGRectMake(CGRectGetWidth(bounds) / 2.0 - 515.0 + 125.0,
+					  CGRectGetHeight(bounds) / 2.0 - 380.0, 1030.0, 760.0)];
 	
 	[pageView setAutoresizingMask:
 		CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
@@ -90,15 +90,15 @@
     
     var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
     
-    [label setTextColor:[CPColor whiteColor]];
-    [label setStringValue:@"Double Click to Edit Photo"];
+    // [label setTextColor:[CPColor whiteColor]];
+    // [label setStringValue:@"Double Click to Edit Photo"];
     
-    [label sizeToFit];
-    [label setFrameOrigin:
-		CGPointMake(CGRectGetWidth(bounds) / 2. - CGRectGetWidth([label frame]) / 2., 
-					CGRectGetMinY([pageView frame]) - CGRectGetHeight([label frame]))];
-    [label setAutoresizingMask:
-		CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+    // [label sizeToFit];
+    // [label setFrameOrigin:
+		// CGPointMake(CGRectGetWidth(bounds) / 2. - CGRectGetWidth([label frame]) / 2., 
+					// CGRectGetMinY([pageView frame]) - CGRectGetHeight([label frame]))];
+    // [label setAutoresizingMask:
+		// CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
     
     [contentView addSubview:label];
 	

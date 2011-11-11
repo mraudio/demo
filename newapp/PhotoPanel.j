@@ -5,16 +5,17 @@ PhotoDragType = "PhotoDragType";
 @implementation PhotoPanel : CPPanel
 {
 	CPArray images;
+	CPArray titles;
 }
 
 - (id) init
 {
-	self = [self initWithContentRect:CGRectMake(0.0, 0.0, 400.0, 700.0)
+	self = [self initWithContentRect:CGRectMake(0.0, 0.0, 250.0, 750.0)
 		styleMask:CPHUDBackgroundWindowMask | CPClosableWindowMask | CPResizableWindowMask];
 	
 	if (self)
 	{
-		[self setTitle:"Photos"];
+		[self setTitle:"Forms"];
 		[self setFloatingPanel:YES];
 		
 		var contentView = [self contentView],
@@ -72,6 +73,18 @@ PhotoDragType = "PhotoDragType";
                                           size:CGSizeMake(960.0, 720.0)]];
                     
         [photosView setContent:images];
+		
+		titles = [	"ARD",
+					"ART",
+					"Left",
+					"Right",
+					"First Screen",	// this will need to be removed
+					"Immittance",
+					"Patient Info",
+					"Speech"
+					];
+		
+		// [photosView setLabels:titles];
 	}
 	
 	return self;

@@ -7,128 +7,181 @@
  */
 
 @import <Foundation/CPObject.j>
-@import "PageView.j"
-@import "PhotoInspector.j"
-@import "PhotoPanel.j"
+
 
 @implementation AppController : CPObject
 {
-	// make label instance variable rather than local
-	// CPTextField label;
-	//
+	CPTextField info;
 }
 
-/*
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
 {
     var theWindow = [[CPWindow alloc] initWithContentRect:CGRectMakeZero() styleMask:CPBorderlessBridgeWindowMask],
         contentView = [theWindow contentView];
 
-    //var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
-	// take out var keyword
-	label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
+	// FIRST SCREEN BUTTONS //
+	var buttonWidth = 180, buttonHeight = 24, gap = 80,
+		midM = [[CPButton alloc] initWithFrame: CGRectMake(0, 0, buttonWidth, buttonHeight)];
+	[midM setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+	[midM setCenter:[contentView center]];
+	
+	var topL = [[CPButton alloc] initWithFrame:		// Audiogram
+			CGRectMake( CGRectGetMinX([midM frame]) - buttonWidth - gap,
+						CGRectGetMinY([midM frame]) - buttonHeight - gap,
+						buttonWidth, buttonHeight)],
+		topM = [[CPButton alloc] initWithFrame:		// Speech
+			CGRectMake( CGRectGetMinX([midM frame]),
+						CGRectGetMinY([midM frame]) - buttonHeight - gap,
+						buttonWidth, buttonHeight)],
+		topR = [[CPButton alloc] initWithFrame:		// Immittance
+			CGRectMake( CGRectGetMaxX([midM frame]) + gap,
+						CGRectGetMinY([midM frame]) - buttonHeight - gap,
+						buttonWidth, buttonHeight)],
+		midL = [[CPButton alloc] initWithFrame:		// Otoacoustic
+			CGRectMake( CGRectGetMinX([midM frame]) - buttonWidth - gap,
+						CGRectGetMinY([midM frame]),
+						buttonWidth, buttonHeight)],
+		midR = [[CPButton alloc] initWithFrame:		// Threshold
+			CGRectMake( CGRectGetMaxX([midM frame]) + gap,
+						CGRectGetMinY([midM frame]),
+						buttonWidth, buttonHeight)],
+		botL = [[CPButton alloc] initWithFrame:		// Decay
+			CGRectMake( CGRectGetMinX([midM frame]) - buttonWidth - gap,
+						CGRectGetMaxY([midM frame]) + gap,
+						buttonWidth, buttonHeight)],
+		botM = [[CPButton alloc] initWithFrame:		// Help
+			CGRectMake( CGRectGetMinX([midM frame]),
+						CGRectGetMaxY([midM frame]) + gap,
+						buttonWidth, buttonHeight)],
+		botR = [[CPButton alloc] initWithFrame:		// Contact
+			CGRectMake( CGRectGetMaxX([midM frame]) + gap,
+						CGRectGetMaxY([midM frame]) + gap,
+						buttonWidth, buttonHeight)];
+
+	// probably collapse into single method later
+	
+	[topL setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+	[topL setTitle:"Audiogram"];
+	[topL setTarget:self];
+	[topL setAction:@selector(audiogram:)];
+	[contentView addSubview:topL];
+	//////////////////////////
+	[topM setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+	[topM setTitle:"Speech"];
+	[topM setTarget:self];
+	[topM setAction:@selector(speech:)];
+	[contentView addSubview:topM];
+	//////////////////////////
+	[topR setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+	[topR setTitle:"Immittance"];
+	[topR setTarget:self];
+	[topR setAction:@selector(immitance:)];
+	[contentView addSubview:topR];
+	//////////////////////////
+	[midL setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+	[midL setTitle:"Otoacoustic Emissions"];
+	[midL setTarget:self];
+	[midL setAction:@selector(emissions:)];
+	[contentView addSubview:midL];
+	//////////////////////////
+	[midM setTitle:"Acoustic Reflex Threshold"];
+	[midM setTarget:self];
+	[midM setAction:@selector(threshold:)];
+	[contentView addSubview:midM];
+	//////////////////////////
+	[midR setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+	[midR setTitle:"Acoustic Reflex Decay"];
+	[midR setTarget:self];
+	[midR setAction:@selector(decay:)];
+	[contentView addSubview:midR];
+	//////////////////////////
+	[botL setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+	[botL setTitle:"Help"];
+	[botL setTarget:self];
+	[botL setAction:@selector(help:)];
+	[contentView addSubview:botL];
+	//////////////////////////
+	[botM setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+	[botM setTitle:"About"];
+	[botM setTarget:self];
+	[botM setAction:@selector(about:)];
+	[contentView addSubview:botM];
+	//////////////////////////
+	[botR setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+	[botR setTitle:"Contact Information"];
+	[botR setTarget:self];
+	[botR setAction:@selector(contact:)];
+	[contentView addSubview:botR];
+	//////////////////////////
+	
+	// HELLO WORLD
+	var label = [[CPTextField alloc] initWithFrame:
+		// CGRectMakeZero()];
+		CGRectMake(CGRectGetMinX([midM frame]) + 20, 200)];
+	// [label setAlignment:CPCenterTextAlignment];	// doesn't appear to actually work
 
     [label setStringValue:@"Hello World!"];
     [label setFont:[CPFont boldSystemFontOfSize:24.0]];
-	[label setAlignment:CPCenterTextAlignment];
-
     [label sizeToFit];
-
     [label setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
-    [label setCenter:[contentView center]];
-
     [contentView addSubview:label];
 	
-	// make a simple change
 	
-	var button = [[CPButton alloc] initWithFrame: CGRectMake(
-                CGRectGetWidth([contentView bounds])/2.0 - 40,
-                CGRectGetMaxY([label frame]) + 10,
-                80, 24
-             )];
-                          
-	[button setAutoresizingMask:CPViewMinXMargin | 
-                            CPViewMaxXMargin | 
-                            CPViewMinYMargin | 
-                            CPViewMaxYMargin];
-
-	[button setTitle:"swap"];
-
-	[button setTarget:self];
-	[button setAction:@selector(swap:)];                
-              
-	[contentView addSubview:button];
-		
-	//
-
+	
+	info = [[CPTextField alloc] initWithFrame:CGRectMake(CGRectGetMinX([midM frame]), 600)];
+	// [info setAlignment:CPCenterTextAlignment];
+	[info setStringValue:@""];
+	[info sizeToFit];
+	[contentView addSubview:info];
+	
+	
+	
     [theWindow orderFront:self];
 
     // Uncomment the following line to turn on the standard menu bar.
     //[CPMenu setMenuBarVisible:YES];
 }
-*/
 
-- (void)applicationDidFinishLaunching:(CPNotification)aNotification
+- (void)audiogram:(id)sender
 {
-    var theWindow = [[CPWindow alloc] initWithContentRect:CGRectMakeZero() 
-						styleMask:CPBorderlessBridgeWindowMask],
-		contentView = [theWindow contentView];
-
-	[contentView setBackgroundColor:[CPColor blackColor]];
-
-	[theWindow orderFront:self];
-	
-	var bounds = [contentView bounds],
-        pageView = [[PageView alloc] initWithFrame:
-            CGRectMake(CGRectGetWidth(bounds) / 2.0 - 515.0 + 125.0,
-					  CGRectGetHeight(bounds) / 2.0 - 380.0, 1030.0, 760.0)];
-	
-	[pageView setAutoresizingMask:
-		CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
-	
-	 [contentView addSubview:pageView];
-    
-    var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
-    
-    // [label setTextColor:[CPColor whiteColor]];
-    // [label setStringValue:@"Double Click to Edit Photo"];
-    
-    // [label sizeToFit];
-    // [label setFrameOrigin:
-		// CGPointMake(CGRectGetWidth(bounds) / 2. - CGRectGetWidth([label frame]) / 2., 
-					// CGRectGetMinY([pageView frame]) - CGRectGetHeight([label frame]))];
-    // [label setAutoresizingMask:
-		// CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
-    
-    [contentView addSubview:label];
-	
-	// var theInspector = [[PhotoInspector alloc] init];
-
-	// [theInspector showWindow:self];
-	
-	[[[PhotoPanel alloc] init] orderFront:nil];
 }
-/*
-- (CPTextField)labelWithTitle:(CPString)aTitle
+
+- (void)speech:(id)sender
 {
-	var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
-	
-	[label setStringValue:aTitle];
-	[label setTextColor:[CPColor whiteColor]];
-	
-	[label sizeToFit];
-	
-	return label;
 }
-*/
-/*
-- (void)swap:(id)sender
+
+- (void)immittance:(id)sender
 {
-    if ([label stringValue] == "Hello World!")
-        [label setStringValue:"Goodbye!"];
-    else
-        [label setStringValue:"Hello World!"];
 }
-*/
+
+- (void)emissions:(id)sender
+{
+}
+
+- (void)treshold:(id)sender
+{
+}
+
+- (void)decay:(id)sender
+{
+}
+
+- (void)help:(id)sender
+{
+    [info setStringValue:"helpful information"];
+	[info sizeToFit];
+}
+
+- (void)about:(id)sender
+{
+    [info setStringValue:"this app needs a name\nbut even without a name it is awesome"];
+	[info sizeToFit];
+}
+
+- (void)contact:(id)sender
+{
+    [info setStringValue:"Andrew Lekashman - 123.456.7890\nJohn Lekashman - 012.345.6789\nMichael Webb - 987.654.3210\nAmanda Wong 098.765.4321"];
+	[info sizeToFit];
+}
 
 @end

@@ -10,8 +10,8 @@ PhotoDragType = "PhotoDragType";
 
 - (id) init
 {
-	self = [self initWithContentRect:CGRectMake(0.0, 0.0, 250.0, 750.0)
-		styleMask:CPHUDBackgroundWindowMask | CPClosableWindowMask | CPResizableWindowMask];
+	self = [self initWithContentRect:CGRectMake(0.0, 0.0, 200.0, 800.0)
+		styleMask:CPHUDBackgroundWindowMask];	// | CPClosableWindowMask | CPResizableWindowMask];
 	
 	if (self)
 	{
@@ -21,7 +21,7 @@ PhotoDragType = "PhotoDragType";
 		var contentView = [self contentView],
 			bounds = [contentView bounds];
 		
-		bounds.size.height -= 20.0;
+		// bounds.size.height -= 20.0;
 		
 		var photosView = [[CPCollectionView alloc] initWithFrame:bounds];
 		
@@ -29,6 +29,14 @@ PhotoDragType = "PhotoDragType";
 		[photosView setMinItemSize:CGSizeMake(150.0, 150.0)];
 		[photosView setMaxItemSize:CGSizeMake(200.0, 200.0)];
 		[photosView setDelegate:self];
+		
+		// [photosView setFrameOrigin:CGPointMake(centerX, centerY),
+		
+		// [view setAutoresizingMask:
+			// CPViewMinXMargin | 
+			// CPViewMaxXMargin | 
+			// CPViewMinYMargin | 
+			// CPViewMaxYMargin];
 		
 		var itemPrototype = [[CPCollectionViewItem alloc] init],
 			photoView = [[PhotoView alloc] initWithFrame:CGRectMakeZero()];
@@ -40,10 +48,10 @@ PhotoDragType = "PhotoDragType";
         var scrollView = [[CPScrollView alloc] initWithFrame:bounds];
         
         [scrollView setDocumentView:photosView];
-        [scrollView setAutoresizingMask:CPViewWidthSizable | CPViewHeightSizable];
-        [scrollView setAutohidesScrollers:YES];
+        // [scrollView setAutoresizingMask:CPViewWidthSizable | CPViewHeightSizable];
+        // [scrollView setAutohidesScrollers:YES];
 
-        [[scrollView contentView] setBackgroundColor:[CPColor whiteColor]];
+        [[scrollView contentView] setBackgroundColor:[CPColor grayColor]];
 
         [contentView addSubview:scrollView];
         

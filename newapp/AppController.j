@@ -8,6 +8,8 @@
 
 @import <Foundation/CPObject.j>
 
+// @import "PopupPanel.j"
+
 
 @implementation AppController : CPObject
 {
@@ -18,6 +20,11 @@
 {
     var theWindow = [[CPWindow alloc] initWithContentRect:CGRectMakeZero() styleMask:CPBorderlessBridgeWindowMask],
         contentView = [theWindow contentView];
+		// pageView = [[PageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(bounds) / 2.0 - 200.0, CGRectGetHeight(bounds) / 2.0 - 200.0, 400.0, 400.0)];
+		
+	// [pageView setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+
+    // [contentView addSubview:pageView];
 
 	// FIRST SCREEN BUTTONS //
 	var buttonWidth = 180, buttonHeight = 24, gap = 80,
@@ -144,6 +151,10 @@
 
 - (void)audiogram:(id)sender
 {
+	// [[[PopupPanel alloc] init] orderFront:nil];
+	// [PopupPanel popup];
+	
+	// [PhotoInspector inspectPaneLayer:_paneLayer];
 }
 
 - (void)speech:(id)sender
@@ -168,19 +179,34 @@
 
 - (void)help:(id)sender
 {
-    [info setStringValue:"helpful information"];
+	var string = "helpful information";
+	if ([info stringValue] == string) {
+		[info setStringValue:null];
+	} else {
+		[info setStringValue:string];
+	}
 	[info sizeToFit];
 }
 
 - (void)about:(id)sender
 {
-    [info setStringValue:"this app needs a name\nbut even without a name it is awesome"];
+	var string = "this app needs a name\nbut even without a name it is awesome";
+	if ([info stringValue] == string) {
+		[info setStringValue:null];
+	} else {
+		[info setStringValue:string];
+	}
 	[info sizeToFit];
 }
 
 - (void)contact:(id)sender
 {
-    [info setStringValue:"Andrew Lekashman - 123.456.7890\nJohn Lekashman - 012.345.6789\nMichael Webb - 987.654.3210\nAmanda Wong 098.765.4321"];
+	var string = "Andrew Lekashman - 123.456.7890\nJohn Lekashman - 012.345.6789\nMichael Webb - 987.654.3210\nAmanda Wong 098.765.4321";
+	if ([info stringValue] == string) {
+		[info setStringValue:null];
+	} else {
+		[info setStringValue:string];
+	}
 	[info sizeToFit];
 }
 

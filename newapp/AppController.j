@@ -8,7 +8,7 @@
 
 @import <Foundation/CPObject.j>
 
-@import "PopupPanel.j"
+// @import "PopupPanel.j"
 
 
 @implementation AppController : CPObject

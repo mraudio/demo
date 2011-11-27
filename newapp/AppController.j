@@ -8,7 +8,7 @@
 
 @import <Foundation/CPObject.j>
 
-// @import "PopupPanel.j"
+@import "PopupPanel.j"
 
 
 @implementation AppController : CPObject
@@ -82,7 +82,7 @@
 	[topR setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
 	[topR setTitle:"Immittance"];
 	[topR setTarget:self];
-	[topR setAction:@selector(immitance:)];
+	[topR setAction:@selector(immittance:)];
 	[contentView addSubview:topR];
 	//////////////////////////
 	[midL setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
@@ -121,12 +121,13 @@
 	[contentView addSubview:botR];
 	//////////////////////////
 	
-	// HELLO WORLD
+	// HELLO WORLD // probably will be replaced with "hedgeform" image
 	var label = [[CPTextField alloc] initWithFrame:
 		// CGRectMakeZero()];
-		CGRectMake(CGRectGetMinX([midM frame]) + 20, 200)];
+		CGRectMake( CGRectGetMinX([midM frame]) + 20,
+					CGRectGetMaxY([topM frame]) - 100)];
 	// [label setAlignment:CPCenterTextAlignment];	// doesn't appear to actually work
-
+	
     [label setStringValue:@"Hello World!"];
     [label setFont:[CPFont boldSystemFontOfSize:24.0]];
     [label sizeToFit];
@@ -151,10 +152,14 @@
 
 - (void)audiogram:(id)sender
 {
+	[info setStringValue:"popup y u no work =("];
+	[info sizeToFit];
+	
+	
 	// [[[PopupPanel alloc] init] orderFront:nil];
 	// [PopupPanel popup];
 	
-	// [PhotoInspector inspectPaneLayer:_paneLayer];
+	[PopupPanel popup:null];
 }
 
 - (void)speech:(id)sender
@@ -169,7 +174,7 @@
 {
 }
 
-- (void)treshold:(id)sender
+- (void)threshold:(id)sender
 {
 }
 

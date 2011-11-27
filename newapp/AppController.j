@@ -125,7 +125,7 @@
 	var label = [[CPTextField alloc] initWithFrame:
 		// CGRectMakeZero()];
 		CGRectMake( CGRectGetMinX([midM frame]) + 20,
-					CGRectGetMaxY([topM frame]) - 100)];
+					CGRectGetMinY([topM frame]) - 80)];
 	// [label setAlignment:CPCenterTextAlignment];	// doesn't appear to actually work
 	
     [label setStringValue:@"Hello World!"];
@@ -136,10 +136,13 @@
 	
 	
 	
-	info = [[CPTextField alloc] initWithFrame:CGRectMake(CGRectGetMinX([midM frame]), 600)];
+	info = [[CPTextField alloc] initWithFrame:
+		CGRectMake( CGRectGetMinX([midM frame]),	// 600)];
+					CGRectGetMaxY([botM frame]) + 80)];
 	// [info setAlignment:CPCenterTextAlignment];
 	[info setStringValue:@""];
 	[info sizeToFit];
+	[info setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
 	[contentView addSubview:info];
 	
 	
